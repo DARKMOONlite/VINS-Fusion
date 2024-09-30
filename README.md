@@ -1,6 +1,7 @@
 # VINS-Fusion
 
-## **The updated repository for OpenCV 3.x and above versions**
+## **The updated repository for OpenCV `3.x` & Ceres `2.2.0+`**
+This is a fork of a fork of the [**VINS-Fusion package**](https://github.com/HKUST-Aerial-Robotics/VINS-Fusion) which was updated to the latest OpenCV version by [**fbasatemur**](https://github.com/fbasatemur/VINS-Fusion). this fork updates the package by changing all references to `LocalParameterizations` to the new `Manifold` superclass
 
 ## An optimization-based multi-sensor state estimator
 
