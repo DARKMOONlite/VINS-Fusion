@@ -19,6 +19,13 @@ find_package(OpenCV REQUIRED)
 find_package(Ceres REQUIRED)
 include_directories(${CERES_INCLUDE_DIRS})
 
+find_package(CUDA REQUIRED)
+include_directories(${CUDA_INCLUDE_DIRS})
+
+set(CUDA_cublas_LIBRARY /usr/local/cuda/lib64/libcublas.so)
+set(CUDA_cudart_LIBRARY /usr/local/cuda/lib64/libcudart.so)
+set(CUDA_cusolver_LIBRARY /usr/local/cuda/lib64/libcusolver.so)
+set(CUDA_cusparse_LIBRARY /usr/local/cuda/lib64/libcusparse.so)
 
 catkin_package(
     INCLUDE_DIRS include

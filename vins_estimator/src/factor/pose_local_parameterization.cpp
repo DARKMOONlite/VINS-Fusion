@@ -26,11 +26,36 @@ bool PoseLocalParameterization::Plus(const double *x, const double *delta, doubl
 
     return true;
 }
-bool PoseLocalParameterization::ComputeJacobian(const double *x, double *jacobian) const
+bool PoseLocalParameterization::PlusJacobian(const double *x, double *jacobian) const
 {
     Eigen::Map<Eigen::Matrix<double, 7, 6, Eigen::RowMajor>> j(jacobian);
     j.topRows<6>().setIdentity();
     j.bottomRows<1>().setZero();
+
+    return true;
+}
+
+bool PoseLocalParameterization::Minus(const double *x, const double *x_plus_delta, double *delta) const
+{
+    Eigen::Map<const Eigen::Vector3d> _p(x);
+    Eigen::Map<const Eigen::Quaterniond> _q(x + 3);
+
+    Eigen::Map<const Eigen::Vector3d> p(x_plus_delta);
+    Eigen::Map<const Eigen::Quaterniond> q(x_plus_delta + 3);
+
+    Eigen::Map<Eigen::Vector3d> dp(delta);
+    Eigen::Map<Eigen::Vector3d> dq(delta + 3);
+
+    dp = p - _p;
+    dq = (_q.inverse() * q).vec();
+
+    return true;
+}
+bool PoseLocalParameterization::MinusJacobian(const double *x, double *jacobian) const
+{
+    Eigen::Map<Eigen::Matrix<double, 6, 7, Eigen::RowMajor>> j(jacobian);
+    j.leftCols<6>().setIdentity();
+    j.rightCols<1>().setZero();
 
     return true;
 }

@@ -15,7 +15,7 @@ public:
                       double* x_plus_delta) const override;
     virtual bool PlusJacobian(const double* x,
                                  double* jacobian) const;
-
+    
     virtual int AmbientSize() const override { return 4; }
     virtual int TangentSize() const override { return 3; }
     virtual bool Minus(const double* y,
