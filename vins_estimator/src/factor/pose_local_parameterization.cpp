@@ -9,7 +9,7 @@
 
 #include "pose_local_parameterization.h"
 
-bool PoseLocalParameterization::Plus(const double *x, const double *delta, double *x_plus_delta) const
+bool PoseLocalManifold::Plus(const double *x, const double *delta, double *x_plus_delta) const
 {
     Eigen::Map<const Eigen::Vector3d> _p(x);
     Eigen::Map<const Eigen::Quaterniond> _q(x + 3);
@@ -26,7 +26,7 @@ bool PoseLocalParameterization::Plus(const double *x, const double *delta, doubl
 
     return true;
 }
-bool PoseLocalParameterization::PlusJacobian(const double *x, double *jacobian) const
+bool PoseLocalManifold::PlusJacobian(const double *x, double *jacobian) const
 {
     Eigen::Map<Eigen::Matrix<double, 7, 6, Eigen::RowMajor>> j(jacobian);
     j.topRows<6>().setIdentity();
@@ -35,7 +35,7 @@ bool PoseLocalParameterization::PlusJacobian(const double *x, double *jacobian) 
     return true;
 }
 
-bool PoseLocalParameterization::Minus(const double *x, const double *x_plus_delta, double *delta) const
+bool PoseLocalManifold::Minus(const double *x, const double *x_plus_delta, double *delta) const
 {
     Eigen::Map<const Eigen::Vector3d> _p(x);
     Eigen::Map<const Eigen::Quaterniond> _q(x + 3);
@@ -51,7 +51,7 @@ bool PoseLocalParameterization::Minus(const double *x, const double *x_plus_delt
 
     return true;
 }
-bool PoseLocalParameterization::MinusJacobian(const double *x, double *jacobian) const
+bool PoseLocalManifold::MinusJacobian(const double *x, double *jacobian) const
 {
     Eigen::Map<Eigen::Matrix<double, 6, 7, Eigen::RowMajor>> j(jacobian);
     j.leftCols<6>().setIdentity();

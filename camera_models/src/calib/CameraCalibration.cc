@@ -505,7 +505,7 @@ CameraCalibration::optimize(CameraPtr& camera,
         }
 
         ceres::Manifold* quaternionParameterization =
-            new EigenQuaternionParameterization;
+            new EigenQuaternionManifold;
 
         problem.SetManifold(transformVec.at(i).rotationData(),
                                     quaternionParameterization);

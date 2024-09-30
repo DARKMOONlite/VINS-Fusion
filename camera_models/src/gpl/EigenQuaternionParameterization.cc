@@ -6,7 +6,7 @@ namespace camodocal
 {
 
 bool
-EigenQuaternionParameterization::Plus(const double* x,
+EigenQuaternionManifold::Plus(const double* x,
                                       const double* delta,
                                       double* x_plus_delta) const
 {
@@ -33,7 +33,7 @@ EigenQuaternionParameterization::Plus(const double* x,
 }
 
 bool
-EigenQuaternionParameterization::PlusJacobian(const double* x,
+EigenQuaternionManifold::PlusJacobian(const double* x,
                                                  double* jacobian) const
 {
     jacobian[0] =  x[3]; jacobian[1]  =  x[2]; jacobian[2]  = -x[1];  // NOLINT
@@ -45,7 +45,7 @@ EigenQuaternionParameterization::PlusJacobian(const double* x,
 
 
 
-bool EigenQuaternionParameterization::Minus(const double* y,
+bool EigenQuaternionManifold::Minus(const double* y,
                                        const double* x,
                                        double* y_minus_x) const
 {
@@ -57,7 +57,7 @@ bool EigenQuaternionParameterization::Minus(const double* y,
     y_minus_x[2] = q_delta[3];
     return true;
 }
-bool EigenQuaternionParameterization::MinusJacobian(const double* x,
+bool EigenQuaternionManifold::MinusJacobian(const double* x,
                                                double* jacobian) const
 {
     jacobian[0] = -x[3]; jacobian[1] = -x[2]; jacobian[2] =  x[1];  // NOLINT

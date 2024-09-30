@@ -6,16 +6,16 @@
 namespace camodocal
 {
 
-class EigenQuaternionParameterization : public ceres::Manifold
+class EigenQuaternionManifold : public ceres::Manifold
 {
 public:
-    virtual ~EigenQuaternionParameterization() {}
+    virtual ~EigenQuaternionManifold() {}
     virtual bool Plus(const double* x,
                       const double* delta,
                       double* x_plus_delta) const override;
     virtual bool PlusJacobian(const double* x,
                                  double* jacobian) const;
-    
+
     virtual int AmbientSize() const override { return 4; }
     virtual int TangentSize() const override { return 3; }
     virtual bool Minus(const double* y,
@@ -32,7 +32,7 @@ private:
 
 template<typename T>
 void
-EigenQuaternionParameterization::EigenQuaternionProduct(const T z[4], const T w[4], T zw[4]) const
+EigenQuaternionManifold::EigenQuaternionProduct(const T z[4], const T w[4], T zw[4]) const
 {
     zw[0] = z[3] * w[0] + z[0] * w[3] + z[1] * w[2] - z[2] * w[1];
     zw[1] = z[3] * w[1] - z[0] * w[2] + z[1] * w[3] + z[2] * w[0];

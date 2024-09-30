@@ -13,7 +13,7 @@
 #include <ceres/ceres.h>
 #include "../utility/utility.h"
 
-class PoseLocalParameterization : public ceres::Manifold
+class PoseLocalManifold : public ceres::Manifold
 {
     virtual bool Plus(const double *x, const double *delta, double *x_plus_delta) const;
     virtual bool PlusJacobian(const double *x, double *jacobian) const;
