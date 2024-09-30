@@ -6,7 +6,7 @@ namespace camodocal
 {
 
 bool
-EigenQuaternionParameterization::Plus(const double* x,
+EigenQuaternionManifold::Plus(const double* x,
                                       const double* delta,
                                       double* x_plus_delta) const
 {
@@ -33,7 +33,7 @@ EigenQuaternionParameterization::Plus(const double* x,
 }
 
 bool
-EigenQuaternionParameterization::ComputeJacobian(const double* x,
+EigenQuaternionManifold::PlusJacobian(const double* x,
                                                  double* jacobian) const
 {
     jacobian[0] =  x[3]; jacobian[1]  =  x[2]; jacobian[2]  = -x[1];  // NOLINT
@@ -43,4 +43,31 @@ EigenQuaternionParameterization::ComputeJacobian(const double* x,
     return true;
 }
 
+
+
+bool EigenQuaternionManifold::Minus(const double* y,
+                                       const double* x,
+                                       double* y_minus_x) const
+{
+    double q_conj[4] = {x[0], -x[1], -x[2], -x[3]};
+    double q_delta[4];
+    EigenQuaternionProduct(y, q_conj, q_delta);
+    y_minus_x[0] = q_delta[1];
+    y_minus_x[1] = q_delta[2];
+    y_minus_x[2] = q_delta[3];
+    return true;
 }
+bool EigenQuaternionManifold::MinusJacobian(const double* x,
+                                               double* jacobian) const
+{
+    jacobian[0] = -x[3]; jacobian[1] = -x[2]; jacobian[2] =  x[1];  // NOLINT
+    jacobian[3] =  x[2]; jacobian[4] = -x[3]; jacobian[5] = -x[0];  // NOLINT
+    jacobian[6] = -x[1]; jacobian[7] =  x[0]; jacobian[8] = -x[3];  // NOLINT
+    jacobian[9] =  x[0]; jacobian[10] =  x[1]; jacobian[11] =  x[2];  // NOLINT
+    return true;
+}
+
+
+
+
+}  // namespace camodocal
