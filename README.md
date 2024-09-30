@@ -3,6 +3,13 @@
 ## **The updated repository for OpenCV `3.x` & Ceres `2.2.0+`**
 This is a fork of a fork of the [**VINS-Fusion package**](https://github.com/HKUST-Aerial-Robotics/VINS-Fusion) which was updated to the latest OpenCV version by [**fbasatemur**](https://github.com/fbasatemur/VINS-Fusion). this fork updates the package by changing all references to `LocalParameterizations` to the new `Manifold` superclass
 
+
+- *Note: Due to a change in Ceres `2.~` in how it loads Cuda libraries, the cuda libraries are incompatible with CMake versions `< 1.17` which isn't avaiable on Ubuntu versions `16.04`, `18.04` & `20.04`, and will fail when you attempt to build the `VINS-Fusion` package. To fix this, when you build the Ceres package at the cmake step set the `USE_CUDA` compiler flag to `off`*
+```bash
+cmake ../ceres-solver-2.2.0 -DUSE_CUDA=OFF
+```
+
+
 ## An optimization-based multi-sensor state estimator
 
 <img src="https://github.com/HKUST-Aerial-Robotics/VINS-Fusion/blob/master/support_files/image/vins_logo.png" width = 55% height = 55% div align=left />
